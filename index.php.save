@@ -1,21 +1,20 @@
 <?php
 
 $conn = new mysqli("172.18.0.2","root","test123","trucorp");
-if($conn){
-}
-else{
- echo "Failed Connect To Database!";
- exit;
+if(!$conn){
+    die( "Cannot connect to MySQL");
+    exit;
 }
 
+$rows=array();
 $query ='SELECT * FROM users';
 $result = $conn->query($query);
 $ctr=0;
-while($row->fetch_assoc($result)){
-    $datas=$row;
+while($row=mysqli_fetch_assoc($result)){
+    $rows[]=$row;
 }
 
-foreach($datas as $data){
+foreach($rows as $row){
     $ctr+=1;
     echo"<br>";
     echo $row['ID'] . " " . $row['Nama'] . "  " . $row['Alamat'] . "  " . $row['Jabatan'];
